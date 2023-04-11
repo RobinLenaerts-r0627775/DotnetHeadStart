@@ -11,3 +11,4 @@ global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.AspNetCore.Mvc;
 global using System.Diagnostics;
 global using DotnetHeadStart.Data;
+global using System.ComponentModel.DataAnnotations;

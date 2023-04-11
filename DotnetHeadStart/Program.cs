@@ -1,10 +1,11 @@
-//get default connection string
+//configure configmanager
 var configManager = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables()
     .Build();
 
+//configure serilog
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
@@ -13,13 +14,14 @@ var loggerConfig = new LoggerConfiguration()
         "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
 if (!string.IsNullOrWhiteSpace(configManager.GetSection("FileLocations").GetSection("Logging").Value))
 {
-    loggerConfig = loggerConfig.WriteTo.RollingFile(configManager.GetSection("FileLocations").GetSection("Logging").Value + "/test.log", outputTemplate:
+    loggerConfig = loggerConfig.WriteTo.File(configManager.GetSection("FileLocations").GetSection("Logging").Value + "/test.log", rollingInterval: RollingInterval.Day, outputTemplate:
         "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
 }
 var logger = loggerConfig.CreateLogger();
 builder.Services.AddSingleton<ILogger>(logger);
+
 logger.Information("Starting up");
-logger.Information("testing: " + configManager.GetConnectionString("DefaultConnection"));
+
 // add database mysql context
 builder.Services.AddDbContext<DataBaseContext>(options =>
     options.UseMySql(configManager.GetConnectionString("DefaultConnection"), ServerVersion.AutoDetect(configManager.GetConnectionString("DefaultConnection"))));

@@ -1,3 +1,18 @@
 {
-    "sarif-viewer.connectToGithubCodeScanning": "off"
+    "sarif-viewer.connectToGithubCodeScanning": "off",
+    "sqltools.connections": [
+        {
+            "mysqlOptions": {
+                "authProtocol": "default"
+            },
+            "previewLimit": 50,
+            "server": "fireflymedia.be",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "fireflymedia",
+            "username": "admin",
+            "database": "HeadStart",
+            "askForPassword": true
+        }
+    ]
 }

@@ -1,16 +1,33 @@
-﻿namespace DotnetHeadStart.Controllers;
+﻿using DotnetHeadStart.Data;
+
+namespace DotnetHeadStart.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger _logger;
+    private readonly DataBaseContext _databaseContext;
 
-    public HomeController(ILogger logger)
+    public HomeController(ILogger logger, DataBaseContext databaseContext)
     {
         _logger = logger;
+        _databaseContext = databaseContext;
     }
 
     public IActionResult Index()
     {
+        var test = new ProfessionalExperience
+        {
+            Company = "Test Company",
+            Title = "Test Title",
+            StartDate = DateTime.Now.AddMonths(-30),
+            EndDate = DateTime.Now,
+            Description = "Test Description"
+        };
+        _databaseContext.ProfessionalExperiences.Add(test);
+        _databaseContext.SaveChanges();
+
+        _databaseContext.ProfessionalExperiences.Remove(test);
+        _databaseContext.SaveChanges();
         return View();
     }
 

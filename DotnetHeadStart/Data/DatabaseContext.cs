@@ -19,7 +19,7 @@ public class DataBaseContext : DbContext
     public override int SaveChanges()
     {
         var entries = ChangeTracker.Entries()
-            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified);
+            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
         foreach (var entityEntry in entries)
         {
             _logger.Information("Saving entity of type {EntityType} with state {State} to database",

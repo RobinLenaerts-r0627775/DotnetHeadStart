@@ -10,8 +10,5 @@ public class ProfessionalExperience : BaseModel
 	public List<string> TechStack { get; set; } = new List<string>();
 	public ProfessionalExperience()
 	{
-		CreatedAt = DateTime.Now;
-		ModifiedAt = DateTime.Now;
-		DeletedAt = DateTime.Now;
 	}
 }
