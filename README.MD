@@ -10,6 +10,7 @@ A ```dotnet new``` template with common functionalities for a MVC web applicatio
   - [x] modifiedAt timestamp
   - [x] Id
 - [x] DatabaseContext
+- [ ] DatabaseConnection for context with:
   - [x] MySQL
   - [ ] DB2
-- [ ] 
+  - [ ] MSSQL
