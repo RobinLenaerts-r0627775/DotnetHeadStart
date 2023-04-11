@@ -5,14 +5,15 @@ using Serilog;
 
 namespace DotnetHeadStart.Test;
 
-public class ModelTests 
+public class ModelTests
 {
     readonly DataBaseContext _dataBaseContext;
     public ProfessionalExperience ProfessionalExperience { get; set; }
 
-    public ModelTests() {
-         _dataBaseContext = new DataBaseContext(new DbContextOptionsBuilder<DataBaseContext>().UseInMemoryDatabase("test").Options, new Mock<ILogger>().Object);
-         ProfessionalExperience = new ProfessionalExperience
+    public ModelTests()
+    {
+        _dataBaseContext = new DataBaseContext(new DbContextOptionsBuilder<DataBaseContext>().UseInMemoryDatabase("test").Options, new Mock<ILogger>().Object);
+        ProfessionalExperience = new ProfessionalExperience
         {
             Company = "Test Company",
             Title = "Test Title",
@@ -20,7 +21,7 @@ public class ModelTests
             EndDate = DateTime.Now,
             Description = "Test Description"
         };
-        
+
     }
 
     [Fact]

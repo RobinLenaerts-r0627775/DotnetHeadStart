@@ -24,7 +24,8 @@ public class DataBaseContext : DbContext
         {
             _logger.Information("Saving entity of type {EntityType} with state {State} to database",
                 entityEntry.Entity.GetType().Name, entityEntry.State);
-            switch (entityEntry.State){
+            switch (entityEntry.State)
+            {
                 case EntityState.Added:
                     ((BaseModel)entityEntry.Entity).CreatedAt = DateTime.Now;
                     break;
