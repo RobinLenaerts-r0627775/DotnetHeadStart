@@ -1,16 +1,11 @@
-
-
-using Microsoft.Extensions.Options;
-using Serilog;
-
 namespace DotnetHeadStart.Test;
 
-public class ModelTests
+public class BaseModelTests
 {
     readonly DataBaseContext _dataBaseContext;
     public ProfessionalExperience ProfessionalExperience { get; set; }
 
-    public ModelTests()
+    public BaseModelTests()
     {
         _dataBaseContext = new DataBaseContext(new DbContextOptionsBuilder<DataBaseContext>().UseInMemoryDatabase("test").Options, new Mock<ILogger>().Object);
         ProfessionalExperience = new ProfessionalExperience
@@ -21,7 +16,6 @@ public class ModelTests
             EndDate = DateTime.Now,
             Description = "Test Description"
         };
-
     }
 
     [Fact]
