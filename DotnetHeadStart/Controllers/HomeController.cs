@@ -15,19 +15,6 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        var test = new ProfessionalExperience
-        {
-            Company = "Test Company",
-            Title = "Test Title",
-            StartDate = DateTime.Now.AddMonths(-30),
-            EndDate = DateTime.Now,
-            Description = "Test Description"
-        };
-        _databaseContext.ProfessionalExperiences.Add(test);
-        _databaseContext.SaveChanges();
-
-        _databaseContext.ProfessionalExperiences.Remove(test);
-        _databaseContext.SaveChanges();
         return View();
     }
 
