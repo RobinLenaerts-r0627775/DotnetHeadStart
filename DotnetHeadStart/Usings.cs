@@ -12,3 +12,4 @@ global using Microsoft.AspNetCore.Mvc;
 global using System.Diagnostics;
 global using DotnetHeadStart.Data;
 global using System.ComponentModel.DataAnnotations;
+global using Microsoft.OpenApi;
