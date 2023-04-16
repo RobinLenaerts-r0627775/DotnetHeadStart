@@ -3,18 +3,18 @@ namespace DotnetHeadStart.Data;
 public class DataBaseContext : DbContext
 {
     readonly ILogger _logger;
-    public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
+    //public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
     public DataBaseContext(DbContextOptions<DataBaseContext> options, ILogger logger) : base(options)
     {
         _logger = logger;
     }
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<ProfessionalExperience>()
-            .Property(p => p.TechStack)
-            .HasConversion(
-                v => string.Join(',', v),
-                v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+        // modelBuilder.Entity<ProfessionalExperience>()
+        //     .Property(p => p.TechStack)
+        //     .HasConversion(
+        //         v => string.Join(',', v),
+        //         v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
     }
     public override int SaveChanges()
     {

@@ -4,7 +4,12 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <IsPackable>true</IsPackable>
+    <SynchReleaseVersion>false</SynchReleaseVersion>
+    <VersionPrefix>1.0.1</VersionPrefix>
+    <PackageReadmeFile>../README.md</PackageReadmeFile>
   </PropertyGroup>
+  
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
