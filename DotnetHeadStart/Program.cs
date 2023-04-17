@@ -1,4 +1,6 @@
 //Configure configmanager
+using IBM.EntityFrameworkCore;
+
 var configManager = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -24,9 +26,13 @@ logger.Information("Starting up");
 
 // Configure database mysql context
 var connectionstring = configManager.GetConnectionString("DefaultConnection");
+// builder.Services.AddDbContext<DataBaseContext>(options =>
+//     options.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring)));
 
+// Configure DB2 context
+var db2connectionstring = configManager.GetConnectionString("DB2Connection");
 builder.Services.AddDbContext<DataBaseContext>(options =>
-    options.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring)));
+    options.UseDb2(db2connectionstring, db2Options => db2Options.SetServerInfo(IBMDBServerType.AS400 ,IBMDBServerVersion.None)));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

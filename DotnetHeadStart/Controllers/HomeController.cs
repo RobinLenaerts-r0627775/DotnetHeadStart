@@ -1,6 +1,4 @@
-﻿using DotnetHeadStart.Data;
-
-namespace DotnetHeadStart.Controllers;
+﻿namespace DotnetHeadStart.Controllers;
 
 public class HomeController : Controller
 {
@@ -15,6 +13,8 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
+        var test = _databaseContext.Authors.ToList();
+        _logger.Information("test: {test}", test);
         return View();
     }
 

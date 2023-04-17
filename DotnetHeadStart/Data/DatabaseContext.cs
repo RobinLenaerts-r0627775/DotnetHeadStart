@@ -4,6 +4,7 @@ public class DataBaseContext : DbContext
 {
     readonly ILogger _logger;
     //public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
+    public DbSet<Author> Authors { get; set; }
     public DataBaseContext(DbContextOptions<DataBaseContext> options, ILogger logger) : base(options)
     {
         _logger = logger;
@@ -15,6 +16,7 @@ public class DataBaseContext : DbContext
         //     .HasConversion(
         //         v => string.Join(',', v),
         //         v => v.Split(',', StringSplitOptions.RemoveEmptyEntries).ToList());
+        modelBuilder.Entity<Author>();
     }
     public override int SaveChanges()
     {
