@@ -1,4 +1,4 @@
-namespace DotnetHeadStart.Data;
+namespace DotnetHeadStart.MVC.Data;
 
 public class HeadStartContext : DbContext
 {

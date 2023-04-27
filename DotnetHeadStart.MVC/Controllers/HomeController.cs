@@ -1,4 +1,4 @@
-﻿using DotnetHeadStart.Data;
+﻿using DotnetHeadStart.MVC.Data;
 
 namespace DotnetHeadStart.Controllers;
 
