@@ -1,4 +1,4 @@
-namespace DotnetHeadStart.Models;
+namespace DotnetHeadStart.MVC.Models;
 public class BaseModel
 {
     [Key]

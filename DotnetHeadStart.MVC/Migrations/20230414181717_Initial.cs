@@ -2,7 +2,7 @@
 
 #nullable disable
 
-namespace DotnetHeadStart.Migrations
+namespace DotnetHeadStart.MVC.Migrations
 {
     /// <inheritdoc />
     public partial class Initial : Migration

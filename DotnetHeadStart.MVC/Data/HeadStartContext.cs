@@ -1,10 +1,10 @@
-namespace DotnetHeadStart.Data;
+namespace DotnetHeadStart.MVC.Data;
 
-public class DataBaseContext : DbContext
+public class HeadStartContext : DbContext
 {
     readonly ILogger _logger;
     //public DbSet<ProfessionalExperience> ProfessionalExperiences { get; set; }
-    public DataBaseContext(DbContextOptions<DataBaseContext> options, ILogger logger) : base(options)
+    public HeadStartContext(DbContextOptions<HeadStartContext> options, ILogger logger) : base(options)
     {
         _logger = logger;
     }

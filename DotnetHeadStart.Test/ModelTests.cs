@@ -2,7 +2,7 @@ namespace DotnetHeadStart.Test;
 
 public class BaseModelTests
 {
-    readonly DataBaseContext _dataBaseContext;
+    readonly HeadStartContext _dataBaseContext;
     public ProfessionalExperience ProfessionalExperience { get; set; }
 
     public BaseModelTests()
