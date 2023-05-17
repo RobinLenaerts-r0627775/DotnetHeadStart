@@ -7,7 +7,10 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
     <SynchReleaseVersion>false</SynchReleaseVersion>
-    <VersionPrefix>1.0.2</VersionPrefix>
+    <VersionPrefix>1.0.3</VersionPrefix>
+    <Authors>Robin Lenaerts</Authors>
+    <PackageId>DotnetHeadStartMVC</PackageId>
+    <PackageTags>ASP.NET;MVC;Headstart;</PackageTags>
     <PackageReadmeFile>./README.md</PackageReadmeFile>
   </PropertyGroup>
   
