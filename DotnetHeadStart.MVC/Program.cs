@@ -25,7 +25,7 @@ logger.Information("Starting up");
 // Configure database mysql context
 var connectionstring = configManager.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<DataBaseContext>(options =>
+builder.Services.AddDbContext<HeadStartContext>(options =>
     options.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring)));
 
 // Add services to the container.

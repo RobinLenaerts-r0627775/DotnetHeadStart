@@ -1,13 +1,11 @@
-﻿using DotnetHeadStart.MVC.Data;
-
-namespace DotnetHeadStart.Controllers;
+﻿namespace DotnetHeadStart.Controllers;
 
 public class HomeController : Controller
 {
     private readonly ILogger _logger;
-    private readonly DataBaseContext _databaseContext;
+    private readonly HeadStartContext _databaseContext;
 
-    public HomeController(ILogger logger, DataBaseContext databaseContext)
+    public HomeController(ILogger logger, HeadStartContext databaseContext)
     {
         _logger = logger;
         _databaseContext = databaseContext;

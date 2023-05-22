@@ -3,18 +3,13 @@
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
-    <IsPackable>true</IsPackable>
-    <SynchReleaseVersion>false</SynchReleaseVersion>
-    <VersionPrefix>1.0.3</VersionPrefix>
-    <Authors>Robin Lenaerts</Authors>
-    <PackageId>DotnetHeadStartMVC</PackageId>
-    <PackageTags>ASP.NET;MVC;Headstart;</PackageTags>
-    <PackageReadmeFile>./README.md</PackageReadmeFile>
     <Nullable>enable</Nullable>
+    <VersionPrefix>1.0.4</VersionPrefix>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="EntityFramework" Version="6.4.4" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="7.0.5" />
   </ItemGroup>
 
 </Project>

@@ -1,14 +1,19 @@
+
 namespace DotnetHeadStart.DB;
 
 public class HeadStartContext : DbContext
 {
+
+    public HeadStartContext(DbContextOptions<HeadStartContext> options) : base(options)
+    {
+    }
     public override int SaveChanges()
     {
         var entries = ChangeTracker.Entries()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
         foreach (var entityEntry in entries)
         {
-            if(entityEntry.Entity is BaseModel model)
+            if (entityEntry.Entity is BaseModel model)
             {
                 switch (entityEntry.State)
                 {
