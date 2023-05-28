@@ -1,4 +1,7 @@
 namespace DotnetHeadStart.DB;
+/// <summary>
+/// Base model for all entities. Contains the Id, CreatedAt, ModifiedAt and DeletedAt properties.
+/// </summary>
 public class BaseModel
 {
     [Key]
