@@ -2,47 +2,53 @@ namespace DotnetHeadStart.Test;
 
 public class BaseModelTests
 {
-    // private readonly HeadStartContext _dataBaseContext;
-    // public ProfessionalExperience ProfessionalExperience { get; set; }
-
+    protected readonly TestDbContext _context;
     public BaseModelTests()
     {
-        // _dataBaseContext = new DataBaseContext(new DbContextOptionsBuilder<DataBaseContext>().UseInMemoryDatabase("test").Options, new Mock<ILogger>().Object);
-        // ProfessionalExperience = new ProfessionalExperience
-        // {
-        //     Company = "Test Company",
-        //     Title = "Test Title",
-        //     StartDate = DateTime.Now.AddMonths(-30),
-        //     EndDate = DateTime.Now,
-        //     Description = "Test Description"
-        // };
+        // setup in memory database
+        var options = new DbContextOptionsBuilder<TestDbContext>()
+            .UseInMemoryDatabase(databaseName: "HeadStart")
+            .Options;
+        _context = new TestDbContext(options);
+    }
+    public void Dispose()
+    {
+        _context.Dispose();
     }
 
-    // [Fact]
-    // public void CreatedAdFilledInWhenNewBaseModelIsSaved()
-    // {
-    //     _dataBaseContext.ProfessionalExperiences.Add(ProfessionalExperience);
-    //     _dataBaseContext.SaveChanges();
-    //     Assert.NotEqual(DateTime.MinValue, ProfessionalExperience.CreatedAt);
-    // }
+    [Fact]
+    public void CreatingModel_FillsInCreatedAt()
+    {
+        // arrange
+        var testObject = new TestObject
+        {
+            Name = "Test Object",
+            Description = "This is a test object"
+        };
 
-    // [Fact]
-    // public void ModifiedAtFilledInWhenBaseModelIsUpdated()
-    // {
-    //     _dataBaseContext.ProfessionalExperiences.Add(ProfessionalExperience);
-    //     _dataBaseContext.SaveChanges();
-    //     ProfessionalExperience.Title = "Updated Title";
-    //     _dataBaseContext.SaveChanges();
-    //     Assert.NotEqual(DateTime.MinValue, ProfessionalExperience.ModifiedAt);
-    // }
+        // act
+        _context.TestObjects.Add(testObject);
+        _context.SaveChanges();
 
-    // [Fact]
-    // public void DeletedAtFilledInWhenBaseModelIsDeleted()
-    // {
-    //     _dataBaseContext.ProfessionalExperiences.Add(ProfessionalExperience);
-    //     _dataBaseContext.SaveChanges();
-    //     _dataBaseContext.ProfessionalExperiences.Remove(ProfessionalExperience);
-    //     _dataBaseContext.SaveChanges();
-    //     Assert.NotEqual(DateTime.MinValue, ProfessionalExperience.DeletedAt);
-    // }
+        // assert
+        Assert.Equal(1, _context.TestObjects.Count());
+        Assert.Equal("Test Object", _context.TestObjects.First().Name);
+        Assert.NotEqual(testObject.CreatedAt, DateTime.MinValue);
+    }
+}
+
+//dispose
+
+public class TestObject : BaseModel
+{
+    public string Name { get; set; }
+    public string Description { get; set; }
+}
+
+public class TestDbContext : HeadStartContext
+{
+    public TestDbContext(DbContextOptions<TestDbContext> options) : base(options)
+    {
+    }
+    public DbSet<TestObject> TestObjects { get; set; }
 }

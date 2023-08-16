@@ -7,7 +7,7 @@ namespace DotnetHeadStart.DB;
 /// </summary>
 public class HeadStartContext : DbContext
 {
-    public HeadStartContext(DbContextOptions<HeadStartContext> options) : base(options)
+    public HeadStartContext(DbContextOptions options) : base(options)
     {
     }
 
