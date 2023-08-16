@@ -32,8 +32,15 @@ public class HeadStartContext : DbContext
                         model.ModifiedAt = DateTime.Now;
                         break;
                     case EntityState.Deleted:
-                        model.DeletedAt = DateTime.Now;
-                        entityEntry.State = EntityState.Modified;
+                        if (hardDelete)
+                        {
+                            entityEntry.State = EntityState.Deleted;
+                        }
+                        else
+                        {
+                            model.DeletedAt = DateTime.Now;
+                            entityEntry.State = EntityState.Modified;
+                        }
                         break;
                 }
             }
