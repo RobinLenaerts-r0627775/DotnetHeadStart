@@ -11,7 +11,7 @@ public class BaseModelTests
             .Options;
         _context = new TestDbContext(options);
     }
-    public void Dispose()
+    private void Dispose()
     {
         _context.Dispose();
     }

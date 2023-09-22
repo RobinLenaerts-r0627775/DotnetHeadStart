@@ -15,7 +15,7 @@ public class HeadStartContext : DbContext
     /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
     /// </summary>
     /// <param name="hardDelete">Boolean indicating whether or not the entities should be hard deleted or not. Only applies if the entity is of basetype BaseModel</param>
-    public override int SaveChanges(bool hardDelete = false)
+    public override int SaveChanges()
     {
         var entries = ChangeTracker.Entries()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
@@ -32,15 +32,8 @@ public class HeadStartContext : DbContext
                         model.ModifiedAt = DateTime.Now;
                         break;
                     case EntityState.Deleted:
-                        if (hardDelete)
-                        {
-                            entityEntry.State = EntityState.Deleted;
-                        }
-                        else
-                        {
-                            model.DeletedAt = DateTime.Now;
-                            entityEntry.State = EntityState.Modified;
-                        }
+                        model.DeletedAt = DateTime.Now;
+                        entityEntry.State = EntityState.Modified;
                         break;
                 }
             }
