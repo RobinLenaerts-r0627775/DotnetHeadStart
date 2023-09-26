@@ -1,4 +1,3 @@
-
 namespace DotnetHeadStart.DB;
 
 /// <summary>
@@ -14,7 +13,6 @@ public class HeadStartContext : DbContext
     /// <summary>
     /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
     /// </summary>
-    /// <param name="hardDelete">Boolean indicating whether or not the entities should be hard deleted or not. Only applies if the entity is of basetype BaseModel</param>
     public override int SaveChanges()
     {
         var entries = ChangeTracker.Entries()
