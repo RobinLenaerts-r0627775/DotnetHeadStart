@@ -11,8 +11,8 @@ builder.Logging.ClearProviders();
 builder.Logging.AddSerilog();
 var loggerConfig = new LoggerConfiguration()
     .WriteTo.Console(outputTemplate:
-        "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
-if (!string.IsNullOrWhiteSpace(configManager.GetSection("FileLocations").GetSection("Logging").Value))
+        "[{Timestamp:dd MM yyyy HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}");
+if (!string.IsNullOrWhiteSpace(configManager.GetSection("FileLocations")?.GetSection("Logging")?.Value))
 {
     loggerConfig = loggerConfig.WriteTo.File(configManager.GetSection("FileLocations").GetSection("Logging").Value + "/HeadStartLog.log", outputTemplate:
         "[{Timestamp:HH:mm:ss} {Level:u3}] {Message:lj}{NewLine}{Exception}", rollingInterval: RollingInterval.Day);
@@ -61,8 +61,8 @@ app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1")
 // Minimal API 
 #region Minimal API
 app.MapGet("/api/ping", () => "pong");
-var appversion = configManager.GetSection("AppVersion").Value;
-app.MapGet("/api/version", () => appversion);
+var appversion = configManager.GetSection("AppVersion")?.Value;
+app.MapGet("/api/version", () => appversion ?? "unknown");
 #endregion
 
 app.Run();
