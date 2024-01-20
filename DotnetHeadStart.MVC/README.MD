@@ -1,16 +1,11 @@
 # DotnetHeadStart
 
-A ```dotnet new``` template with common functionalities for a MVC web application.
+## Description
+
+A ```dotnet new``` template with common functionalities for a MVC web application, designed to accellerate the startup phase of new projects.
 
 ## Features
 
-- [x] Soft deletes
-- [x] Base model
-  - [x] CreatedAt timestamp
-  - [x] modifiedAt timestamp
-  - [x] Id
+- [] Logging (|Serilog)
+- [] Configuration
 - [x] DatabaseContext
-- [ ] DatabaseConnection for context with:
-  - [x] MySQL
-  - [ ] DB2
-  - [ ] MSSQL
