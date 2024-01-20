@@ -5,9 +5,9 @@ namespace DotnetHeadStart.DB;
 /// Implementation of the DbContext class. Base functionalities: 
 /// - Automatically set the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
 /// </summary>
-public class HeadStartContext : DbContext
+public class BaseContext : DbContext
 {
-    public HeadStartContext(DbContextOptions options) : base(options)
+    public BaseContext(DbContextOptions options) : base(options)
     {
     }
 
@@ -15,7 +15,7 @@ public class HeadStartContext : DbContext
     /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
     /// </summary>
     /// <param name="hardDelete">Boolean indicating whether or not the entities should be hard deleted or not. Only applies if the entity is of basetype BaseModel</param>
-    public override int SaveChanges(bool hardDelete = false)
+    public new int SaveChanges(bool hardDelete = false)
     {
         var entries = ChangeTracker.Entries()
             .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
@@ -32,11 +32,7 @@ public class HeadStartContext : DbContext
                         model.ModifiedAt = DateTime.Now;
                         break;
                     case EntityState.Deleted:
-                        if (hardDelete)
-                        {
-                            entityEntry.State = EntityState.Deleted;
-                        }
-                        else
+                        if (!hardDelete)
                         {
                             model.DeletedAt = DateTime.Now;
                             entityEntry.State = EntityState.Modified;
