@@ -1,5 +1,4 @@
 global using System.Diagnostics;
-global using DotnetHeadStart.MVC.Data;
 global using DotnetHeadStart.MVC.Models;
 global using Microsoft.AspNetCore.Builder;
 global using Microsoft.AspNetCore.Mvc;

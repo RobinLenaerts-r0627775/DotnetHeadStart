@@ -3,9 +3,9 @@
 public class HomeController : Controller
 {
     private readonly ILogger _logger;
-    private readonly HeadStartContext _databaseContext;
+    private readonly BaseContext _databaseContext;
 
-    public HomeController(ILogger logger, HeadStartContext databaseContext)
+    public HomeController(ILogger logger, BaseContext databaseContext)
     {
         _logger = logger;
         _databaseContext = databaseContext;

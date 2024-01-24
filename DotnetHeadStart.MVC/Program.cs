@@ -1,5 +1,3 @@
-using DotnetHeadStart.DB;
-
 var configManager = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -8,7 +6,7 @@ var configManager = new ConfigurationBuilder()
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.AddHeadStartLogging(configManager);
+builder.ConfigureLogging(configManager);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddEndpointsApiExplorer();
@@ -50,6 +48,6 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.UseHeadStart(configManager);
+app.UseDefaultEndpoints(configManager);
 
 app.Run();
