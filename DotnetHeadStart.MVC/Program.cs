@@ -1,3 +1,5 @@
+using DotnetHeadStart.DB;
+
 var configManager = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
@@ -17,7 +19,7 @@ builder.Services.AddSingleton<IConfiguration>(sp => configManager);
 // Configure database mysql context
 var connectionstring = configManager.GetConnectionString("DefaultConnection");
 
-builder.Services.AddDbContext<HeadStartContext>(options =>
+builder.Services.AddDbContext<BaseContext>(options =>
     options.UseMySql(connectionstring, ServerVersion.AutoDetect(connectionstring)));
 
 var app = builder.Build();

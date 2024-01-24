@@ -1,14 +1,11 @@
-namespace DotnetHeadStart.DB;
+namespace DotnetHeadStart;
 
 /// <summary>
 /// Implementation of the DbContext class. Base functionalities: 
 /// - Automatically set the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
 /// </summary>
-public class BaseContext : DbContext
+public class BaseContext(DbContextOptions options) : DbContext(options)
 {
-    public BaseContext(DbContextOptions options) : base(options)
-    {
-    }
 
     /// <summary>
     /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.

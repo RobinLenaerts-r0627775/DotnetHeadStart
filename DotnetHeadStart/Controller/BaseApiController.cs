@@ -10,8 +10,8 @@ namespace DotnetHeadStart;
 /// <typeparam name="T">The type of the type you want the crud operations to work on</typeparam>
 public class BaseApiController<T> : Controller where T : BaseModel
 {
-    protected readonly HeadStartContext _context;
-    public BaseApiController(HeadStartContext context)
+    protected readonly BaseContext _context;
+    public BaseApiController(BaseContext context)
     {
         _context = context;
     }
