@@ -45,6 +45,13 @@ public class BaseService<T> where T : BaseModel
         return item;
     }
 
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="id">id of the </param>
+    /// <param name="item"></param>
+    /// <returns></returns>
+    /// <exception cref="ArgumentException">When gihen id does not match id of gihen item</exception>
     public async Task Update(int id, T item)
     {
         if (id != item.Id)
