@@ -1,18 +1,8 @@
 ﻿namespace DotnetHeadStart;
 
-/// <summary>
-/// A base service for all services. Contains the basic CRUD operations for instances of the given type.
-/// The type must be a subclass of BaseModel.
-/// The context must be a subclass of HeadStartContext.
-/// </summary>
-/// <typeparam name="T">Type that gets managed by this service</typeparam>
-public class BaseService<T> where T : BaseModel
+public class BaseRepository<T>(BaseContext context) where T : BaseModel
 {
-    private readonly HeadStartContext _context;
-    public BaseService(HeadStartContext context)
-    {
-        _context = context;
-    }
+    private readonly BaseContext _context = context;
 
     /// <summary>
     /// Gets all instances of <typeparamref name="T"/> from the database
@@ -24,7 +14,7 @@ public class BaseService<T> where T : BaseModel
     }
 
     /// <summary>
-    /// Gets an instance of <typeparamref name="T"/> from the database by its id
+    /// Gets a(n) <typeparamref name="T"/> from the database by its id
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
@@ -34,9 +24,9 @@ public class BaseService<T> where T : BaseModel
     }
 
     /// <summary>
-    /// Create a new instance of <typeparamref name="T"/> in the database
+    /// Create a(n) <typeparamref name="T"/> in the database
     /// </summary>
-    /// <param name="item"></param>
+    /// <param name="item">object of type <typeparamref name="T"/> to create</param>
     /// <returns></returns>
     public async Task<T> Create(T item)
     {
@@ -46,12 +36,11 @@ public class BaseService<T> where T : BaseModel
     }
 
     /// <summary>
-    /// 
+    /// Update a(n) <typeparamref name="T"/> in the database
     /// </summary>
-    /// <param name="id">id of the </param>
-    /// <param name="item"></param>
+    /// <param name="id">Id of the object to update</param>
+    /// <param name="item">object of type <typeparamref name="T"/> to update</param>
     /// <returns></returns>
-    /// <exception cref="ArgumentException">When gihen id does not match id of gihen item</exception>
     public async Task Update(int id, T item)
     {
         if (id != item.Id)
@@ -62,13 +51,14 @@ public class BaseService<T> where T : BaseModel
         await _context.SaveChangesAsync();
     }
 
+    /// <summary>
+    /// Delete a(n) <typeparamref name="T"/> from the database
+    /// </summary>
+    /// <param name="id">Id of the <typeparamref name="T"/> to delete</param>
+    /// <returns></returns>
     public async Task Delete(int id)
     {
-        var item = await _context.Set<T>().FindAsync(id);
-        if (item == null)
-        {
-            throw new ArgumentException("Item not found");
-        }
+        var item = await _context.Set<T>().FindAsync(id) ?? throw new ArgumentException("Item not found");
         _context.Set<T>().Remove(item);
         await _context.SaveChangesAsync();
     }

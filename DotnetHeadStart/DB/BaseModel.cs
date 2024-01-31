@@ -1,4 +1,4 @@
-namespace DotnetHeadStart.DB;
+namespace DotnetHeadStart;
 /// <summary>
 /// Base model for all entities. Contains the Id, CreatedAt, ModifiedAt and DeletedAt properties.
 /// </summary>
