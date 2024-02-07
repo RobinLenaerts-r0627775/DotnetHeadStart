@@ -8,7 +8,11 @@ A set of useful features to get you started with your .NET project.
 
 - BaseModel Class
   - DeletedAt property for soft deletes
-  - CreatedAt and UpdatedAt properties
+  - CreatedAt, ModifiedAt properties
 - DatabaseContext Class
   - Soft delete functionality
-  - Automatically set CreatedAt and UpdatedAt properties
+  - Automatically set CreatedAt, ModifiedAt and DeletedAt properties
+- WebApplicationBuilderExtensions Class
+  - Configure Serilog Logging
+- WebHostBuilderExtensions Class
+  - Configure some basic API endpoints
