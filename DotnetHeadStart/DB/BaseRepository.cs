@@ -7,10 +7,20 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// <summary>
     /// Gets all instances of <typeparamref name="T"/> from the database
     /// </summary>
+    /// <param name="includeDeleted">Whether to include softdeleted instances of <typeparamref name="T"/></param>
     /// <returns>An IEnumerable of <typeparamref name="T"/></returns>
-    public async Task<IEnumerable<T>> GetAll()
+    public async Task<IEnumerable<T>> GetAllAsync(bool includeDeleted = false)
     {
-        return await _context.Set<T>().ToListAsync();
+        return await _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).ToListAsync();
+    }
+
+    /// <summary>
+    /// Gets all instances of <typeparamref name="T"/> from the database
+    /// </summary>
+    /// <returns>An IEnumerable of <typeparamref name="T"/></returns>
+    public IEnumerable<T> GetAll(bool includeDeleted = false)
+    {
+        return [.. _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue)];
     }
 
     /// <summary>
@@ -18,9 +28,19 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
-    public async Task<T?> GetById(int id)
+    public async Task<T?> GetByIdAsync(int id)
     {
         return await _context.Set<T>().FindAsync(id);
+    }
+
+    /// <summary>
+    /// Gets a(n) <typeparamref name="T"/> from the database by its id
+    /// </summary>
+    /// <param name="id">Id of the object instance to get</param>
+    /// <returns>the object instance, or null if none could be found</returns>
+    public T? GetById(int id)
+    {
+        return _context.Set<T>().Find(id);
     }
 
     /// <summary>
@@ -28,10 +48,22 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="item">object of type <typeparamref name="T"/> to create</param>
     /// <returns></returns>
-    public async Task<T> Create(T item)
+    public async Task<T> CreateAsync(T item)
     {
         _context.Set<T>().Add(item);
         await _context.SaveChangesAsync();
+        return item;
+    }
+
+    /// <summary>
+    /// Create a(n) <typeparamref name="T"/> in the database
+    /// </summary>
+    /// <param name="item">object of type <typeparamref name="T"/> to create</param>
+    /// <returns></returns>
+    public T Create(T item)
+    {
+        _context.Set<T>().Add(item);
+        _context.SaveChanges();
         return item;
     }
 
@@ -41,7 +73,7 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// <param name="id">Id of the object to update</param>
     /// <param name="item">object of type <typeparamref name="T"/> to update</param>
     /// <returns></returns>
-    public async Task Update(int id, T item)
+    public async Task UpdateAsync(int id, T item)
     {
         if (id != item.Id)
         {
@@ -52,14 +84,42 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     }
 
     /// <summary>
+    /// Update a(n) <typeparamref name="T"/> in the database
+    /// </summary>
+    /// <param name="id">Id of the object to update</param>
+    /// <param name="item">object of type <typeparamref name="T"/> to update</param>
+    /// <returns></returns>
+    public void Update(int id, T item)
+    {
+        if (id != item.Id)
+        {
+            throw new ArgumentException("Id does not match");
+        }
+        _context.Update(item);
+        _context.SaveChanges();
+    }
+
+    /// <summary>
     /// Delete a(n) <typeparamref name="T"/> from the database
     /// </summary>
     /// <param name="id">Id of the <typeparamref name="T"/> to delete</param>
     /// <returns></returns>
-    public async Task Delete(int id)
+    public async Task DeleteAsync(int id, bool softDelete = true)
     {
         var item = await _context.Set<T>().FindAsync(id) ?? throw new ArgumentException("Item not found");
         _context.Set<T>().Remove(item);
-        await _context.SaveChangesAsync();
+        await _context.SaveChangesAsync(softDelete);
+    }
+
+    /// <summary>
+    /// Delete a(n) <typeparamref name="T"/> from the database
+    /// </summary>
+    /// <param name="id">Id of the <typeparamref name="T"/> to delete</param>
+    /// <returns></returns>
+    public void Delete(int id)
+    {
+        var item = _context.Set<T>().Find(id) ?? throw new ArgumentException("Item not found");
+        _context.Set<T>().Remove(item);
+        _context.SaveChanges();
     }
 }

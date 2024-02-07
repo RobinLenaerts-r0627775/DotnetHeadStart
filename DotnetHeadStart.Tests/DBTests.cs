@@ -1,42 +1,56 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿namespace DotnetHeadStart.Tests;
 
-namespace DotnetHeadStart.Tests;
-
-public class DBTests
+public class DBTests : IDisposable
 {
+    private readonly TestRepository _repo;
     private readonly TestContext _context;
     public DBTests()
     {
         // Arrange
-        var options = new DbContextOptionsBuilder<BaseContext>()
+        var options = new DbContextOptionsBuilder<TestContext>()
             .UseInMemoryDatabase(databaseName: "DBTests")
             .Options;
         _context = new TestContext(options);
 
         _context.Database.EnsureDeleted();
         _context.Database.EnsureCreated();
+
+        _repo = new TestRepository(_context);
+
+        //Seed the database
+        _repo.Create(new TestObject { Name = "test" });
+        _repo.Create(new TestObject { Name = "test2" });
     }
+
+    public void Dispose()
+    {
+        _context.Dispose();
+        GC.SuppressFinalize(this);
+    }
+
+    #region SyncTests
 
     [Fact]
     public void CreatedAtIsSet()
     {
         // Arrange
-        var test = new TestBaseModel { Name = "test" };
+        var test = new TestObject { Name = "testnew" };
 
         // Act
-        _context.Tests.Add(test);
-        _context.SaveChanges();
+        _repo.Create(test);
+
+        var newlyCreated = _repo.GetById(test.Id);
 
         // Assert
-        Assert.NotEqual(DateTime.MinValue, test.CreatedAt);
+        Assert.NotEqual(DateTime.MinValue, newlyCreated?.CreatedAt);
     }
 
     [Fact]
     public void ModifiedAtIsSet()
     {
         // Arrange
-        var test = new TestBaseModel { Name = "test" };
-        _context.Tests.Add(test);
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
         _context.SaveChanges();
 
         // Act
@@ -51,26 +65,161 @@ public class DBTests
     public void SoftDeleteChangesDeletedAtValue()
     {
 
-        var test = new TestBaseModel { Name = "test" };
-        _context.Tests.Add(test);
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
         _context.SaveChanges();
 
         // Act
-        _context.Tests.Remove(test);
+        _context.TestObjects.Remove(test);
         _context.SaveChanges();
 
         // Assert
         Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
     }
-}
 
-public class TestBaseModel : BaseModel
-{
-    public string Name { get; set; } = null!;
-}
+    [Fact]
+    public void SoftDeleteDoesNotDelete()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
 
-public class TestContext(DbContextOptions options) : BaseContext(options)
-{
-    public DbSet<TestBaseModel> Tests { get; set; }
-}
+        // Act
+        _context.TestObjects.Remove(test);
+        _context.SaveChanges();
 
+        // Assert
+        Assert.NotNull(_context.TestObjects.Find(test.Id));
+    }
+
+    [Fact]
+    public void GetByIdReturnsCorrectObject()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        var result = _repo.GetById(test.Id);
+
+        // Assert
+        Assert.Equal(test, result);
+    }
+
+    [Fact]
+    public void GetByIdReturnsNullIfNotFound()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        var result = _repo.GetById(test.Id + 1);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    #endregion
+
+    #region AsyncTests
+
+    [Fact]
+    public async Task CreatedAtIsSetAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "testnew" };
+
+        // Act
+        await _repo.CreateAsync(test);
+
+        var newlyCreated = await _repo.GetByIdAsync(test.Id);
+
+        // Assert
+        Assert.NotEqual(DateTime.MinValue, newlyCreated?.CreatedAt);
+    }
+
+    [Fact]
+    public async Task ModifiedAtIsSetAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        test.Name = "test2";
+        await _context.SaveChangesAsync();
+
+        // Assert
+        Assert.NotEqual(DateTime.MinValue, test.ModifiedAt);
+    }
+
+    [Fact]
+    public async Task SoftDeleteChangesDeletedAtValueAsync()
+    {
+
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+
+        // Assert
+        Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
+    }
+
+    [Fact]
+    public async Task SoftDeleteDoesNotDeleteAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+
+        // Assert
+        Assert.NotNull(_context.TestObjects.Find(test.Id));
+    }
+
+    [Fact]
+    public async Task GetByIdReturnsCorrectObjectAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        var result = await _repo.GetByIdAsync(test.Id);
+
+        // Assert
+        Assert.Equal(test, result);
+    }
+
+    [Fact]
+    public async Task GetByIdReturnsNullIfNotFoundAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        var result = await _repo.GetByIdAsync(test.Id + 1);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    #endregion
+
+}
