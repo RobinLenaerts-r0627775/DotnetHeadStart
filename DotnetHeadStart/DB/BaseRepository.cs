@@ -28,9 +28,9 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
-    public async Task<T?> GetByIdAsync(int id)
+    public async Task<T?> GetByIdAsync(int id, bool includeDeleted = false)
     {
-        return await _context.Set<T>().FindAsync(id);
+        return await _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefaultAsync(x => x.Id == id);
     }
 
     /// <summary>
@@ -38,9 +38,9 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
-    public T? GetById(int id)
+    public T? GetById(int id, bool includeDeleted = false)
     {
-        return _context.Set<T>().Find(id);
+        return _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefault(x => x.Id == id);
     }
 
     /// <summary>

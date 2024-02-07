@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart.Tests;
+﻿using System.Runtime.CompilerServices;
+
+namespace DotnetHeadStart.Tests;
 
 public class DBTests : IDisposable
 {
@@ -123,6 +125,84 @@ public class DBTests : IDisposable
         Assert.Null(result);
     }
 
+    [Fact]
+    public void GetByIdReturnsNullIfDeleted()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        _context.SaveChanges();
+        var result = _repo.GetById(test.Id);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public void GetAllReturnsAllObjects()
+    {
+        // Act
+        var result = _repo.GetAll();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public void GetAllReturnsAllObjectsWithoutDeleted()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        _context.SaveChanges();
+        var result = _repo.GetAll();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public void GetAllReturnsAllObjectsWithDeleted()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        _context.SaveChanges();
+        var result = _repo.GetAll(true);
+
+        // Assert
+        Assert.Equal(3, result.Count());
+    }
+
+    [Fact]
+    public void GetByIdReturnsDeletedObjectIfDeleted()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        _context.SaveChanges();
+        var result = _repo.GetById(test.Id, true);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+
     #endregion
 
     #region AsyncTests
@@ -218,6 +298,84 @@ public class DBTests : IDisposable
 
         // Assert
         Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task GetByIdReturnsNullIfDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetByIdAsync(test.Id);
+
+        // Assert
+        Assert.Null(result);
+    }
+
+    [Fact]
+    public async Task GetAllReturnsAllObjectsAsync()
+    {
+        // Act
+        var result = await _repo.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public async Task GetAllReturnsAllObjectsWithoutDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public async Task GetAllReturnsAllObjectsWithDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetAllAsync(true);
+
+        // Assert
+        Assert.Equal(3, result.Count());
+    }
+
+    [Fact]
+    public async Task GetByIdReturnsDeletedObjectIfDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObject { Name = "test" };
+        _context.TestObjects.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjects.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetByIdAsync(test.Id, true);
+
+        // Assert
+        Assert.NotNull(result);
     }
 
     #endregion
