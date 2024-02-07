@@ -36,7 +36,7 @@ on:
       - "**.csproj"
 
 env:
-  DOTNET_VERSION: "7.0.x" # The .NET SDK version to use
+  DOTNET_VERSION: "8.0.x" # The .NET SDK version to use
 
 jobs:
   build:
@@ -59,5 +59,11 @@ jobs:
       - name: Build
         run: dotnet build --configuration Release --no-restore
 
-      # - name: Test
-      #   run: dotnet test --no-restore --verbosity normal
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
+
+      - name: Pack
+        run: dotnet pack --no-restore --configuration Release --output nupkgs
+
+      # - name: Push
+      #   run: dotnet nuget push ./nupkgs/*.nupkg --api-key ${{secrets.NUGET_API_KEY}} --source https://api.nuget.org/v3/index.json
