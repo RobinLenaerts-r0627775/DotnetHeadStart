@@ -10,8 +10,10 @@ public static class WebApplicationBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configuration"></param>
     /// <returns>the builder for builder pattern functionality</returns>
-    public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder, IConfiguration configuration)
+    public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder, IConfiguration? configuration = null)
     {
+        configuration ??= builder.Configuration;
+
         //Configure serilog
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
