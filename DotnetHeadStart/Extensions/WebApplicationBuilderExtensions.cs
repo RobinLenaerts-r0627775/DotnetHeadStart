@@ -10,10 +10,8 @@ public static class WebApplicationBuilderExtensions
     /// <param name="builder"></param>
     /// <param name="configuration"></param>
     /// <returns>the builder for builder pattern functionality</returns>
-    public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder, IConfiguration? configuration = null)
+    public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder, IConfiguration configuration)
     {
-        configuration ??= builder.Configuration;
-
         //Configure serilog
         builder.Logging.ClearProviders();
         builder.Logging.AddSerilog();
@@ -37,5 +35,10 @@ public static class WebApplicationBuilderExtensions
             Log.Information("Logging to file: " + configuration.GetSection("HeadStart").GetSection("Logging").Value + "/HeadStartLog.log");
         }
         return builder;
+    }
+
+    public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder)
+    {
+        return builder.ConfigureLogging(builder.Configuration);
     }
 }
