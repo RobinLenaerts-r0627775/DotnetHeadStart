@@ -1,6 +1,6 @@
 ﻿namespace DotnetHeadStart;
 
-public class SMTPMailSender(IConfiguration configuration, ILogger logger) : IEmailSender
+public class SMTPMailSender(IConfiguration configuration, ILogger logger) : IMailSender
 {
     public readonly IConfiguration _configuration = configuration;
     public readonly ILogger _logger = logger;
@@ -15,8 +15,31 @@ public class SMTPMailSender(IConfiguration configuration, ILogger logger) : IEma
     /// <exception cref="HeadStartException">Thrown when an error occurs while sending the email.</exception>
     public Task SendEmailAsync(string[] recipients, string subject, string htmlMessage)
     {
+
+        var smtpUser = _configuration["SMTP_USER"];
+        if (string.IsNullOrWhiteSpace(smtpUser))
+        {
+            Log.Error("SMTP_USER not set in configuration");
+            throw new HeadStartException("SMTP_USER not set in configuration");
+        }
+        var smtpHost = _configuration["SMTP_HOST"];
+        if (string.IsNullOrWhiteSpace(smtpHost))
+        {
+            Log.Error("SMTP_HOST not set in configuration");
+            throw new HeadStartException("SMTP_HOST not set in configuration");
+        }
+
+        var smtpPort = _configuration["SMTP_PORT"];
+
+        var smtpPassword = _configuration["SMTP_PASSWORD"];
+        if (string.IsNullOrWhiteSpace(smtpPassword))
+        {
+            Log.Error("SMTP_PASSWORD not set in configuration");
+            throw new HeadStartException("SMTP_PASSWORD not set in configuration");
+        }
+
         var message = new MimeMessage();
-        message.From.Add(MailboxAddress.Parse(_configuration["SMTP_USER"]));
+        message.From.Add(MailboxAddress.Parse(smtpUser));
         foreach (var recipient in recipients)
         {
             message.To.Add(MailboxAddress.Parse(recipient));
@@ -27,8 +50,8 @@ public class SMTPMailSender(IConfiguration configuration, ILogger logger) : IEma
         {
             //send email
             using var smtp = new SmtpClient();
-            smtp.Connect(_configuration["SMTP_HOST"], int.Parse(_configuration["SMTP_PORT"] ?? "465"));
-            smtp.Authenticate(_configuration["SMTP_USER"], _configuration["SMTP_PASSWORD"]);
+            smtp.Connect(smtpHost, int.Parse(smtpPort ?? "465"));
+            smtp.Authenticate(smtpUser, smtpPassword);
             var resp = smtp.Send(message);
             smtp.Disconnect(true);
         }
