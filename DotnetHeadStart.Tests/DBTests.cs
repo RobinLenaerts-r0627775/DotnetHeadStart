@@ -11,6 +11,7 @@ public class DBTests : IDisposable
         // Arrange
         var options = new DbContextOptionsBuilder<TestContext>()
             .UseInMemoryDatabase(databaseName: "DBTests")
+            .AddInterceptors(new BaseModelInterceptor())
             .Options;
         _context = new TestContext(options);
 
@@ -20,8 +21,8 @@ public class DBTests : IDisposable
         _repo = new TestRepository(_context);
 
         //Seed the database
-        _repo.Create(new TestObject { Name = "test" });
-        _repo.Create(new TestObject { Name = "test2" });
+        _repo.CreateAsync(new TestObject { Name = "test" }).Wait();
+        _repo.CreateAsync(new TestObject { Name = "test2" }).Wait();
     }
 
     public void Dispose()
@@ -92,7 +93,7 @@ public class DBTests : IDisposable
         _context.SaveChanges();
 
         // Assert
-        Assert.NotNull(_context.TestObjects.Find(test.Id));
+        Assert.NotNull(_context.TestObjects.IgnoreQueryFilters().FirstOrDefault(t => t.Id == test.Id));
     }
 
     [Fact]
