@@ -3,10 +3,10 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.6</VersionPrefix>
+    <VersionPrefix>0.0.1</VersionPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Robin Lenaerts</Authors>
-    <PackageTags>DotnetHeadStart</PackageTags>
+    <PackageTags>DotnetHeadStart, API, Template</PackageTags>
     <PackageRepositoryUrl>https://github.com/RobinLenaerts-r0627775/DotnetHeadStart</PackageRepositoryUrl>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <EmbedUntrackedSources>true</EmbedUntrackedSources>
