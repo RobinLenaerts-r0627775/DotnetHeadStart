@@ -7,3 +7,7 @@ global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
 global using Serilog;
+global using Microsoft.AspNetCore.Identity.UI.Services;
+global using MimeKit;
+global using MimeKit.Text;
+global using MailKit.Net.Smtp;

@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
 namespace DotnetHeadStart;
 
 /// <summary>
@@ -7,70 +9,24 @@ namespace DotnetHeadStart;
 public class BaseContext(DbContextOptions options) : DbContext(options)
 {
 
-    /// <summary>
-    /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
-    /// </summary>
-    /// <param name="softdelete">If true, the DeletedAt property will be set (only when the entity is implements <seealso cref="BaseModel">BaseModel</seealso>) instead of deleting the entity. Default value is true</param>
-    public new int SaveChanges(bool softdelete = true)
-    {
-        var entries = ChangeTracker.Entries()
-            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
-        foreach (var entityEntry in entries)
-        {
-            if (entityEntry.Entity is BaseModel model)
-            {
-                switch (entityEntry.State)
-                {
-                    case EntityState.Added:
-                        model.CreatedAt = DateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        model.ModifiedAt = DateTime.Now;
-                        break;
-                    case EntityState.Deleted:
-                        if (softdelete)
-                        {
-                            entityEntry.State = EntityState.Modified;
-                            model.DeletedAt = DateTime.Now;
-                        }
-                        break;
-                }
-            }
-        }
-        return base.SaveChanges();
-    }
 
-    /// <summary>
-    /// Save the changes done to the database. Automatically sets the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities. Async version.
-    /// </summary>
-    /// <param name="softdelete">If true, the DeletedAt property will be set (only when the entity is implements <seealso cref="BaseModel">BaseModel</seealso>) instead of deleting the entity. Default value is true</param>
-    /// <returns></returns>
-    public Task<int> SaveChangesAsync(bool softdelete = true)
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        var entries = ChangeTracker.Entries()
-            .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified || e.State == EntityState.Deleted);
-        foreach (var entityEntry in entries)
-        {
-            if (entityEntry.Entity is BaseModel model)
+        modelBuilder.Model.GetEntityTypes()
+            .Where(e => typeof(BaseModel).IsAssignableFrom(e.ClrType))
+            .ToList()
+            .ForEach(e =>
             {
-                switch (entityEntry.State)
-                {
-                    case EntityState.Added:
-                        model.CreatedAt = DateTime.Now;
-                        break;
-                    case EntityState.Modified:
-                        model.ModifiedAt = DateTime.Now;
-                        break;
-                    case EntityState.Deleted:
-                        if (softdelete)
-                        {
-                            entityEntry.State = EntityState.Modified;
-                            model.DeletedAt = DateTime.Now;
-                        }
-                        break;
-                }
-            }
-        }
-        return base.SaveChangesAsync();
+                var parameter = Expression.Parameter(e.ClrType, "e");
+                var property = Expression.Property(parameter, nameof(BaseModel.IsDeleted));
+                var negation = Expression.Not(property);
+                var lambda = Expression.Lambda(negation, parameter);
+
+                modelBuilder.Entity(e.ClrType).HasQueryFilter(lambda);
+
+                modelBuilder.Entity(e.ClrType)
+                    .HasIndex("IsDeleted");
+            });
     }
 }

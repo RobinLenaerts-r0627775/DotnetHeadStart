@@ -36,9 +36,15 @@ public static class WebApplicationBuilderExtensions
         }
         return builder;
     }
-
     public static WebApplicationBuilder ConfigureLogging(this WebApplicationBuilder builder)
     {
         return builder.ConfigureLogging(builder.Configuration);
+    }
+
+    public static WebApplicationBuilder ConfigureMailing(this WebApplicationBuilder builder)
+    {
+        //Configure mailing
+        builder.Services.AddSingleton<IMailSender, SMTPMailSender>();
+        return builder;
     }
 }

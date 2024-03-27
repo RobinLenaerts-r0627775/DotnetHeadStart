@@ -1,9 +1,9 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.5</VersionPrefix>
+    <VersionPrefix>1.0.6</VersionPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Robin Lenaerts</Authors>
     <PackageTags>DotnetHeadStart</PackageTags>
@@ -22,5 +22,7 @@
     <PackageReference Include="Serilog.Extensions.Logging" Version="7.0.0" />
     <PackageReference Include="Microsoft.OpenApi" Version="1.6.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="MimeKit" Version="4.3.0" />
+    <PackageReference Include="MailKit" Version="4.3.0" />
   </ItemGroup>
 </Project>
