@@ -4,7 +4,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <IsPackable>true</IsPackable>
-    <VersionPrefix>0.0.1</VersionPrefix>
+    <VersionPrefix>0.0.2</VersionPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Robin Lenaerts</Authors>
     <PackageTags>DotnetHeadStart, API, Template</PackageTags>
