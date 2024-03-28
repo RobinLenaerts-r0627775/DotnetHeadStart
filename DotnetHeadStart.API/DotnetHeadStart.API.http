@@ -5,4 +5,12 @@ Accept: application/json
 
 ###
 
-GET {{API_HostAddress}}/test/
+GET {{API_HostAddress}}/health/
+
+### 
+
+GET {{API_HostAddress}}/api/ping/
+
+###
+
+GET {{API_HostAddress}}/api/version/
