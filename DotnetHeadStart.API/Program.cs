@@ -20,7 +20,7 @@ var hostname = configManager["DB_HOSTNAME"];
 if (string.IsNullOrWhiteSpace(hostname))
 {
     Log.Fatal("DB_HOSTNAME is not set. Please set it in the environment variables.");
-    throw new HeadStartException("DB_HOSTNAME is not set");
+    // throw new HeadStartException("DB_HOSTNAME is not set");
 }
 var port = configManager["DB_PORT"];
 if (string.IsNullOrWhiteSpace(port))
@@ -32,13 +32,13 @@ var user = configManager["DB_USER"];
 if (string.IsNullOrWhiteSpace(user))
 {
     Log.Fatal("DB_USER is not set. Please set it in the environment variables.");
-    throw new HeadStartException("DB_USER is not set");
+    // throw new HeadStartException("DB_USER is not set");
 }
 var password = configManager["DB_PASSWORD"];
 if (string.IsNullOrWhiteSpace(password))
 {
     Log.Fatal("DB_PASSWORD is not set. Please set it in the environment variables.");
-    throw new HeadStartException("DB_PASSWORD is not set");
+    // throw new HeadStartException("DB_PASSWORD is not set");
 }
 
 var connectionstring = $"server={hostname};port={port};database=AITClient;user={user};password={password};convert zero datetime=True;Keepalive=120"; // mysql connection string
