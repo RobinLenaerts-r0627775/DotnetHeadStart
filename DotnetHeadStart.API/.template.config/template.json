@@ -1,12 +1,10 @@
 {
     "$schema": "https://json.schemastore.org/template",
     "author": "Robin Lenaerts",
-    "classifications": [
-        "Web/API"
-    ],
+    "classifications": [ "Web/MVC" ],
     "identity": "Fireflymedia.DotNetHeadStart",
-    "name": "ASP.NET API Head Start",
-    "shortName": "headstart-api",
+    "name": "ASP.NET MVC Head Start",
+    "shortName": "headstart-mvc",
     "tags": {
         "language": "C#",
         "type": "project"
