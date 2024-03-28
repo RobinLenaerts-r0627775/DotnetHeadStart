@@ -5,15 +5,19 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <IsPackable>true</IsPackable>
     <SynchReleaseVersion>false</SynchReleaseVersion>
-    <VersionPrefix>1.0.2</VersionPrefix>
     <PackageReadmeFile>./README.md</PackageReadmeFile>
   </PropertyGroup>
-  
+
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
+  <ItemGroup>
+    <None Remove="nuget.config.old" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="nuget.config.old" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="README.md" Pack="true" PackagePath="\" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="7.0.4">

@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetHeadStart.MVC", "Dotn
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetHeadStart.Tests", "DotnetHeadStart.Tests\DotnetHeadStart.Tests.csproj", "{9F18BD7D-564A-4568-8494-88A7CFD8F1FD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotnetHeadStart.API", "DotnetHeadStart.API\DotnetHeadStart.API.csproj", "{2779886A-698D-4B8C-941B-9ABCB502B858}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -55,6 +57,18 @@ Global
 		{9F18BD7D-564A-4568-8494-88A7CFD8F1FD}.Release|x64.Build.0 = Release|Any CPU
 		{9F18BD7D-564A-4568-8494-88A7CFD8F1FD}.Release|x86.ActiveCfg = Release|Any CPU
 		{9F18BD7D-564A-4568-8494-88A7CFD8F1FD}.Release|x86.Build.0 = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|x64.Build.0 = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Debug|x86.Build.0 = Debug|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|x64.ActiveCfg = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|x64.Build.0 = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|x86.ActiveCfg = Release|Any CPU
+		{2779886A-698D-4B8C-941B-9ABCB502B858}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
