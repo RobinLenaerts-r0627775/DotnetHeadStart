@@ -41,7 +41,7 @@ if (string.IsNullOrWhiteSpace(password))
     // throw new HeadStartException("DB_PASSWORD is not set");
 }
 
-var connectionstring = $"server={hostname};port={port};database=AITClient;user={user};password={password};convert zero datetime=True;Keepalive=120"; // mysql connection string
+var connectionstring = $"server={hostname};port={port};database=MyDatabase;user={user};password={password};convert zero datetime=True;Keepalive=120"; // mysql connection string
 
 var app = builder.Build();
 
