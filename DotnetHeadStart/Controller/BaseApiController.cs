@@ -8,13 +8,9 @@ namespace DotnetHeadStart;
 /// The context must be a subclass of HeadStartContext.
 /// </summary>
 /// <typeparam name="T">The type of the type you want the crud operations to work on</typeparam>
-public class BaseApiController<T> : Controller where T : BaseModel
+public class BaseApiController<T>(BaseContext context) : ControllerBase where T : BaseModel
 {
-    protected readonly BaseContext _context;
-    public BaseApiController(BaseContext context)
-    {
-        _context = context;
-    }
+    protected readonly BaseContext _context = context;
 
     [HttpGet]
     public async Task<ActionResult<IEnumerable<T>>> Get()
