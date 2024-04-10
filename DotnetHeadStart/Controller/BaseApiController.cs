@@ -42,7 +42,7 @@ public class BaseApiController<T> : Controller where T : BaseModel
     }
 
     [HttpPut("{id}")]
-    public async Task<IActionResult> Put(int id, T item)
+    public async Task<IActionResult> Put(string id, T item)
     {
         if (id != item.Id)
         {

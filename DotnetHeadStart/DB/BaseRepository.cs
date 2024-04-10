@@ -1,8 +1,8 @@
 ﻿namespace DotnetHeadStart;
 
-public class BaseRepository<T>(BaseContext context) where T : BaseModel
+public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
 {
-    private readonly BaseContext _context = context;
+    private readonly DbContext _context = context;
 
     /// <summary>
     /// Gets all instances of <typeparamref name="T"/> from the database
@@ -28,7 +28,7 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
-    public async Task<T?> GetByIdAsync(int id, bool includeDeleted = false)
+    public async Task<T?> GetByIdAsync(string id, bool includeDeleted = false)
     {
         return await _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefaultAsync(x => x.Id == id);
     }
@@ -38,7 +38,7 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// </summary>
     /// <param name="id">Id of the object instance to get</param>
     /// <returns>the object instance, or null if none could be found</returns>
-    public T? GetById(int id, bool includeDeleted = false)
+    public T? GetById(string id, bool includeDeleted = false)
     {
         return _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefault(x => x.Id == id);
     }
@@ -73,7 +73,7 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// <param name="id">Id of the object to update</param>
     /// <param name="item">object of type <typeparamref name="T"/> to update</param>
     /// <returns></returns>
-    public async Task UpdateAsync(int id, T item)
+    public async Task UpdateAsync(string id, T item)
     {
         if (id != item.Id)
         {
@@ -89,7 +89,7 @@ public class BaseRepository<T>(BaseContext context) where T : BaseModel
     /// <param name="id">Id of the object to update</param>
     /// <param name="item">object of type <typeparamref name="T"/> to update</param>
     /// <returns></returns>
-    public void Update(int id, T item)
+    public void Update(string id, T item)
     {
         if (id != item.Id)
         {

@@ -1,5 +1,5 @@
 ﻿namespace DotnetHeadStart.Tests;
 
-public class TestRepository(TestContext context) : BaseRepository<TestObject>(context)
+public class TestRepository(DbContext context) : BaseRepository<TestObject>(context)
 {
 }

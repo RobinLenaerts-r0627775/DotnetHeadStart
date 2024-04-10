@@ -7,7 +7,7 @@ public class BaseModelInterceptor : SaveChangesInterceptor
 {
 
     /// <summary>
-    /// Automatically set the CreatedAt, ModifiedAt and DeletedAt properties of the BaseModel entities.
+    /// Automatically set the CreatedAt, ModifiedAt and DeletedAt properties of the IBaseEntity entities.
     /// </summary>
     /// <param name="eventData"></param>
     /// <param name="result"></param>
@@ -24,14 +24,14 @@ public class BaseModelInterceptor : SaveChangesInterceptor
                 eventData, result, cancellationToken);
         }
 
-        IEnumerable<EntityEntry<BaseModel>> entries =
+        IEnumerable<EntityEntry<IBaseEntity>> entries =
             eventData
                 .Context
                 .ChangeTracker
-                .Entries<BaseModel>()
+                .Entries<IBaseEntity>()
                 .Where(e => e.State == EntityState.Deleted || e.State == EntityState.Modified || e.State == EntityState.Added);
 
-        foreach (EntityEntry<BaseModel> entry in entries)
+        foreach (EntityEntry<IBaseEntity> entry in entries)
         {
             switch (entry.State)
             {
@@ -62,14 +62,14 @@ public class BaseModelInterceptor : SaveChangesInterceptor
                 eventData, result);
         }
 
-        IEnumerable<EntityEntry<BaseModel>> entries =
+        IEnumerable<EntityEntry<IBaseEntity>> entries =
             eventData
                 .Context
                 .ChangeTracker
-                .Entries<BaseModel>()
+                .Entries<IBaseEntity>()
                 .Where(e => e.State == EntityState.Deleted || e.State == EntityState.Modified || e.State == EntityState.Added);
 
-        foreach (EntityEntry<BaseModel> entry in entries)
+        foreach (EntityEntry<IBaseEntity> entry in entries)
         {
             switch (entry.State)
             {

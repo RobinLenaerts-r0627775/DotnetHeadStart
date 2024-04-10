@@ -1,11 +1,11 @@
+﻿
 namespace DotnetHeadStart;
+
 /// <summary>
-/// Base model for all entities. Contains the Id, CreatedAt, ModifiedAt, IsDeleted and DeletedAt properties.
+/// Base Identity User for all Identity users. Contains the CreatedAt, ModifiedAt, IsDeleted and DeletedAt properties. Inherits from IdentityUser.
 /// </summary>
-public class BaseModel : IBaseEntity
+public class BaseIdentityUser : IdentityUser, IBaseEntity
 {
-    [Key]
-    public string Id { get; set; } = Guid.NewGuid().ToString();
     public DateTime CreatedAt { get; set; } = DateTime.MinValue;
     public DateTime ModifiedAt { get; set; } = DateTime.MinValue;
     public DateTime DeletedAt { get; set; } = DateTime.MinValue;

@@ -1,7 +1,6 @@
 ﻿namespace DotnetHeadStart.Tests;
 
-public class TestContext(DbContextOptions<TestContext> options) : BaseContext(options)
+public class TestIdentityContext(DbContextOptions options) : BaseIdentityContext<TestUser>(options)
 {
     public DbSet<TestObject> TestObjects { get; set; } = null!;
-
 }
