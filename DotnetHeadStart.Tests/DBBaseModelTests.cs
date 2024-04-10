@@ -8,7 +8,8 @@ public class DBBaseModelTests : IDisposable
     {
         // Arrange
         var options = new DbContextOptionsBuilder<TestContext>()
-            .UseInMemoryDatabase(databaseName: "DBTests")
+            .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning))
+            .UseInMemoryDatabase(databaseName: "DBTests", new InMemoryDatabaseRoot())
             .AddInterceptors(new BaseModelInterceptor())
             .Options;
         _context = new TestContext(options);

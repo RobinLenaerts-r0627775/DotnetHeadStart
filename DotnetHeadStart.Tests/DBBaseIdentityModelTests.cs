@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity;
-
-namespace DotnetHeadStart.Tests.Identity;
+﻿namespace DotnetHeadStart.Tests.Identity;
 
 public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixture>
 {
@@ -11,7 +9,8 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
     public DBBaseIdentityModelTests(IdentityFixture fixture)
     {
         var options = new DbContextOptionsBuilder<TestIdentityContext>()
-            .UseInMemoryDatabase(databaseName: "DBTests")
+            .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.ManyServiceProvidersCreatedWarning))
+            .UseInMemoryDatabase(databaseName: "DBTests", new InMemoryDatabaseRoot())
             .AddInterceptors(new BaseModelInterceptor())
             .Options;
         _context = new TestIdentityContext(options);
@@ -32,6 +31,8 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
 
     public void Dispose()
     {
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
         _context.Dispose();
         GC.SuppressFinalize(this);
     }
