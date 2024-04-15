@@ -104,7 +104,7 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// </summary>
     /// <param name="id">Id of the <typeparamref name="T"/> to delete</param>
     /// <returns></returns>
-    public async Task DeleteAsync(int id, bool softDelete = true)
+    public async Task DeleteAsync(string id, bool softDelete = true)
     {
         var item = await _context.Set<T>().FindAsync(id) ?? throw new ArgumentException("Item not found");
         _context.Set<T>().Remove(item);
@@ -116,7 +116,7 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// </summary>
     /// <param name="id">Id of the <typeparamref name="T"/> to delete</param>
     /// <returns></returns>
-    public void Delete(int id)
+    public void Delete(string id)
     {
         var item = _context.Set<T>().Find(id) ?? throw new ArgumentException("Item not found");
         _context.Set<T>().Remove(item);
