@@ -3,7 +3,7 @@
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
-    <VersionPrefix>1.0.10</VersionPrefix>
+    <VersionPrefix>1.0.10.2</VersionPrefix>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Authors>Robin Lenaerts</Authors>
     <PackageTags>DotnetHeadStart</PackageTags>
@@ -23,7 +23,6 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0"/>
     <PackageReference Include="MimeKit" Version="4.4.0"/>
     <PackageReference Include="MailKit" Version="4.4.0"/>
-    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0"/>
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="8.0.4"/>
   </ItemGroup>
 </Project>
