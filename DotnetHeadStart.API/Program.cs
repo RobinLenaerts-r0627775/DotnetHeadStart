@@ -1,5 +1,3 @@
-
-
 var builder = WebApplication.CreateBuilder(args);
 
 var configManager = builder.Configuration;
@@ -65,6 +63,8 @@ if (app.Environment.IsDevelopment())
 app.UseDefaultEndpoints(app.Configuration);
 app.MapHealthChecks("/health");
 app.MapControllers();
+
+app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
 app.Run();
