@@ -4,7 +4,7 @@
     "classifications": [
         "Web/API"
     ],
-    "identity": "Fireflymedia.DotNetHeadStart",
+    "identity": "Fireflymedia.DotNetHeadStart.API",
     "name": "ASP.NET API Head Start",
     "shortName": "headstart-api",
     "tags": {

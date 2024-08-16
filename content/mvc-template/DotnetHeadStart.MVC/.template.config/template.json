@@ -4,7 +4,7 @@
     "classifications": [
         "Web/MVC"
     ],
-    "identity": "Fireflymedia.DotNetHeadStart",
+    "identity": "Fireflymedia.DotNetHeadStart.MVC",
     "name": "ASP.NET MVC Head Start",
     "shortName": "headstart-mvc",
     "tags": {
