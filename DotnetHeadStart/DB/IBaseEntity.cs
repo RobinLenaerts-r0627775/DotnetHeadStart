@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.DB;
 
 public interface IBaseEntity
 {

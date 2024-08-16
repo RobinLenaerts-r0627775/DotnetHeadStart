@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart;
+﻿using DotnetHeadStart.Exceptions;
+
+namespace DotnetHeadStart.Mailing;
 
 public class SMTPMailSender(IConfiguration configuration, ILogger logger) : IMailSender
 {

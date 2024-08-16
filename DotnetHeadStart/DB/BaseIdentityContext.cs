@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart;
+﻿using DotnetHeadStart.Exceptions;
+
+namespace DotnetHeadStart.DB;
 
 /// <summary>
 /// Base Identity Context for all Identity contexts. Contains the BaseModel query filter.

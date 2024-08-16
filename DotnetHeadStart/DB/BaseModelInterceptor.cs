@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 
-namespace DotnetHeadStart;
+namespace DotnetHeadStart.DB;
 
 public class BaseModelInterceptor : SaveChangesInterceptor
 {

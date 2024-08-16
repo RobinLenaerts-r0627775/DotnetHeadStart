@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.DB;
 
 public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
 {

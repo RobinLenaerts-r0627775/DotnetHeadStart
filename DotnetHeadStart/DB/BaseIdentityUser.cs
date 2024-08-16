@@ -1,5 +1,4 @@
-﻿
-namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.DB;
 
 /// <summary>
 /// Base Identity User for all Identity users. Contains the CreatedAt, ModifiedAt, IsDeleted and DeletedAt properties. Inherits from IdentityUser.

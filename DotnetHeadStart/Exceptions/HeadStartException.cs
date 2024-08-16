@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.Exceptions;
 
 public class HeadStartException : Exception
 {

@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.Mailing;
 
 public interface IMailSender
 {

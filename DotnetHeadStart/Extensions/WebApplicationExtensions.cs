@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart;
+﻿namespace DotnetHeadStart.Extensions;
 
 public static class WebApplicationExtensions
 {
