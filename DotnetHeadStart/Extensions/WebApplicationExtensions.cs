@@ -10,8 +10,9 @@ public static class WebApplicationExtensions
     /// <param name="app"></param>
     /// <param name="configuration"></param>
     /// <returns></returns>
-    public static WebApplication UseDefaultEndpoints(this WebApplication app, IConfiguration configuration)
+    public static WebApplication UseDefaultEndpoints(this WebApplication app, IConfiguration? configuration = null)
     {
+        configuration ??= app.Configuration;
         // Minimal API 
         #region Minimal API
         app.MapGet("/api/ping", () => "pong");

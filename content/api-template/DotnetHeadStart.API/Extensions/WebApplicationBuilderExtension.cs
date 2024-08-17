@@ -1,6 +1,4 @@
-﻿using Microsoft.EntityFrameworkCore;
-
-namespace DotnetHeadStart.API.Extensions;
+﻿namespace DotnetHeadStart.API.Extensions;
 
 public static class WebApplicationBuilderExtension
 {

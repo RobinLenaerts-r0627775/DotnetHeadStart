@@ -18,6 +18,7 @@ public class DBBaseModelTests : IDisposable
 
         _context.Database.EnsureDeleted();
         _context.Database.EnsureCreated();
+        _context.TestObjects.AsQueryable().
 
         _repo = new TestRepository(_context);
 
