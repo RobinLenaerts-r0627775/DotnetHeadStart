@@ -1,4 +1,4 @@
-﻿wnamespace DotnetHeadStart.API;
+﻿namespace DotnetHeadStart.API.Middlewares;
 
 public class ExceptionHandlingMiddleware(
 RequestDelegate next)

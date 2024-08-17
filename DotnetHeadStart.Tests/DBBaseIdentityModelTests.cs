@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart.Tests.Identity;
+﻿using DotnetHeadStart.DB;
+
+namespace DotnetHeadStart.Tests;
 
 public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixture>
 {

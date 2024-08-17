@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart.Tests.DBBaseModelTests;
+﻿using DotnetHeadStart.DB;
+
+namespace DotnetHeadStart.Tests;
 
 public class DBBaseModelTests : IDisposable
 {

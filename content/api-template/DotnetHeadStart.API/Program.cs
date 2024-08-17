@@ -1,3 +1,5 @@
+using DotnetHeadStart.API.Middlewares;
+
 var builder = WebApplication.CreateBuilder(args);
 
 var configManager = builder.Configuration;

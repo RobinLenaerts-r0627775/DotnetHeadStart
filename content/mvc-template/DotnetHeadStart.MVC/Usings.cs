@@ -6,4 +6,5 @@ global using Microsoft.EntityFrameworkCore;
 global using Microsoft.Extensions.Configuration;
 global using Microsoft.Extensions.DependencyInjection;
 global using ILogger = Serilog.ILogger;
-global using DotnetHeadStart;
+global using DotnetHeadStart.DB;
+global using DotnetHeadStart.Extensions;

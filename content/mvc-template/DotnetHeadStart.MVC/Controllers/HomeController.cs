@@ -1,4 +1,4 @@
-﻿namespace DotnetHeadStart.Controllers;
+﻿namespace DotnetHeadStart.MVC.Controllers;
 
 public class HomeController : Controller
 {
