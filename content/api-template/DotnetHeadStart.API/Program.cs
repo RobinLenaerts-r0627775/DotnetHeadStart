@@ -41,6 +41,8 @@ app.UseDefaultEndpoints(app.Configuration);
 app.MapHealthChecks("/health");
 app.MapControllers();
 
+//example
+
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.UseHttpsRedirection();
