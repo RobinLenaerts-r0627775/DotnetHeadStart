@@ -1,0 +1,14 @@
+{
+    "$schema": "https://json.schemastore.org/template",
+    "author": "Robin Lenaerts",
+    "classifications": [
+        "Web/API"
+    ],
+    "identity": "Fireflymedia.DotNetHeadStart.MinimalApi",
+    "name": "ASP.NET Minimal API Head Start",
+    "shortName": "headstart-minimalapi",
+    "tags": {
+        "language": "C#",
+        "type": "project"
+    }
+}
