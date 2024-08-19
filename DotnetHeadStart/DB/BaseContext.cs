@@ -1,4 +1,6 @@
-namespace DotnetHeadStart;
+using DotnetHeadStart.Exceptions;
+
+namespace DotnetHeadStart.DB;
 
 /// <summary>
 /// Implementation of the DbContext class.

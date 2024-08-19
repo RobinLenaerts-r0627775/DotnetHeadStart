@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart.Tests;
+﻿using DotnetHeadStart.DB;
+
+namespace DotnetHeadStart.Tests;
 
 public class TestIdentityContext(DbContextOptions options) : BaseIdentityContext<TestUser>(options)
 {

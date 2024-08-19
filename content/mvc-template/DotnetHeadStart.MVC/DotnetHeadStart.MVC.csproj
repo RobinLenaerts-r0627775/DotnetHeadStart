@@ -33,6 +33,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DotnetHeadStart\DotnetHeadStart.csproj" />
+    <ProjectReference Include="..\..\..\DotnetHeadStart\DotnetHeadStart.csproj" />
   </ItemGroup>
 
 </Project>

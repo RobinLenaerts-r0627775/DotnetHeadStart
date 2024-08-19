@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart;
+﻿using DotnetHeadStart.DB;
+
+namespace DotnetHeadStart.Exceptions;
 
 public static class DBExtensions
 {

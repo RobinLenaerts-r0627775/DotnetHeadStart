@@ -1,14 +1,2 @@
-# DotnetHeadStart
-
-## Description
-
-A set of useful features to get you started with your .NET project.
-
-## Features
-
-- BaseModel Class
-  - DeletedAt property for soft deletes
-  - CreatedAt and UpdatedAt properties
-- DatabaseContext Class
-  - Soft delete functionality
-  - Automatically set CreatedAt and UpdatedAt properties
+<!-- Provide an overview of what your template package does and how to get started.
+Consider previewing the README before uploading (https://learn.microsoft.com/en-us/nuget/nuget-org/package-readme-on-nuget-org#preview-your-readme). -->

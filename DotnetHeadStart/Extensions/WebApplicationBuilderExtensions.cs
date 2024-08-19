@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart;
+﻿using DotnetHeadStart.Mailing;
+
+namespace DotnetHeadStart.Extensions;
 
 public static class WebApplicationBuilderExtensions
 {
