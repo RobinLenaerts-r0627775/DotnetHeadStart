@@ -3,8 +3,8 @@
   <PropertyGroup>
     <!-- The package metadata. Fill in the properties marked as TODO below -->
     <!-- Follow the instructions on https://learn.microsoft.com/en-us/nuget/create-packages/package-authoring-best-practices -->
-    <PackageId>DotnetHeadStart</PackageId>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageId>DotnetHeadStart.Templates</PackageId>
+    <PackageVersion>1.0.0</PackageVersion>
     <Title>DotnetHeadStart.Templates</Title>
     <Authors>Robin Lenaerts</Authors>
     <Description>A set of templates for easy starting with new projects</Description>
