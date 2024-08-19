@@ -1,6 +1,4 @@
-using DotnetHeadStart.API.DB;
-using DotnetHeadStart.API.Extensions;
-using DotnetHeadStart.API.Middlewares;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +26,8 @@ if (app.Environment.IsDevelopment())
 }
 app.UseDefaultEndpoints(app.Configuration);
 app.MapHealthChecks("/health");
-app.MapControllers();
+app.MapGet("/", () => "Hello World!");
+app.RegisterTemplateModule();
 
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 
