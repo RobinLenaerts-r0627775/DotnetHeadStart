@@ -1,4 +1,6 @@
-﻿namespace DotnetHeadStart.DB;
+﻿using DotnetHeadStart.Extensions;
+
+namespace DotnetHeadStart.DB;
 
 public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
 {
@@ -44,12 +46,12 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// <returns>the object instance, or null if none could be found</returns>
     public async Task<T?> GetByIdAsync(string id, bool includeDeleted = false)
     {
-        var query = _context.Set<T>().Where(e => e.Id == id);
+        var query = _context.Set<T>().AsQueryable();
         if (!includeDeleted && typeof(ISoftDeletable).IsAssignableFrom(typeof(T)))
         {
             query = query.Where(x => ((ISoftDeletable)x).DeletedAt == DateTime.MinValue);
         }
-        return await query.FirstOrDefaultAsync();
+        return await query.FirstOrDefaultAsync(x => x.Id == id);
 
     }
 

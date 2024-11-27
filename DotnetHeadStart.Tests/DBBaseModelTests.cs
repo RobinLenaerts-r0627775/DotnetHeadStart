@@ -1,6 +1,4 @@
-﻿using DotnetHeadStart.DB;
-
-namespace DotnetHeadStart.Tests;
+﻿namespace DotnetHeadStart.Tests;
 
 public class DBBaseModelTests : IDisposable
 {
@@ -63,38 +61,6 @@ public class DBBaseModelTests : IDisposable
 
         // Assert
         Assert.NotEqual(DateTime.MinValue, test.ModifiedAt);
-    }
-
-    [Fact]
-    public void SoftDeleteChangesDeletedAtValue()
-    {
-
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-
-        // Assert
-        Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
-    }
-
-    [Fact]
-    public void SoftDeleteDoesNotDelete()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-
-        // Assert
-        Assert.NotNull(_context.TestObjects.IgnoreQueryFilters().FirstOrDefault(t => t.Id == test.Id));
     }
 
     [Fact]

@@ -1,8 +1,6 @@
-﻿using DotnetHeadStart.DB;
+﻿namespace DotnetHeadStart.Tests.Setup;
 
-namespace DotnetHeadStart.Tests;
-
-public class TestUser : BaseIdentityUser
+public class TestUser : BaseIdentityUserSoftDeletable
 {
 
 }
