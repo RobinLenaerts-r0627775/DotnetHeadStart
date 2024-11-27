@@ -59,8 +59,94 @@ public class DBSoftDeletableTests : IDisposable
         _context.SaveChanges();
 
         // Assert
-        Assert.NotNull(_context.TestObjects.IgnoreQueryFilters().FirstOrDefault(t => t.Id == test.Id));
+        Assert.NotNull(_context.TestObjectsSoftDeletable.IgnoreQueryFilters().FirstOrDefault(t => t.Id == test.Id));
     }
+
+    [Fact]
+    public void GetByIdReturnsDeletedObjectIfDeleted()
+    {
+        // Arrange
+        var test = new TestObjectSoftDeletable { Name = "test" };
+        _context.TestObjectsSoftDeletable.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjectsSoftDeletable.Remove(test);
+        _context.SaveChanges();
+        var result = _repo.GetById(test.Id, true);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+
+    [Fact]
+    public async Task SoftDeleteChangesDeletedAtValueAsync()
+    {
+
+        var test = new TestObjectSoftDeletable { Name = "test" };
+        _context.TestObjectsSoftDeletable.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjectsSoftDeletable.Remove(test);
+        await _context.SaveChangesAsync();
+
+        // Assert
+        Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
+    }
+
+    [Fact]
+    public async Task SoftDeleteDoesNotDeleteAsync()
+    {
+        // Arrange
+        var test = new TestObjectSoftDeletable { Name = "test" };
+        _context.TestObjectsSoftDeletable.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjectsSoftDeletable.Remove(test);
+        await _context.SaveChangesAsync();
+
+        // Assert
+        Assert.NotNull(_context.TestObjectsSoftDeletable.Find(test.Id));
+    }
+
+    [Fact]
+    public async Task GetAllReturnsAllObjectsWithoutDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObjectSoftDeletable { Name = "test" };
+        _context.TestObjectsSoftDeletable.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjectsSoftDeletable.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetAllAsync();
+
+        // Assert
+        Assert.Equal(2, result.Count());
+    }
+
+    [Fact]
+    public async Task GetByIdReturnsDeletedObjectIfDeletedAsync()
+    {
+        // Arrange
+        var test = new TestObjectSoftDeletable { Name = "test" };
+        _context.TestObjectsSoftDeletable.Add(test);
+        _context.SaveChanges();
+
+        // Act
+        _context.TestObjectsSoftDeletable.Remove(test);
+        await _context.SaveChangesAsync();
+        var result = await _repo.GetByIdAsync(test.Id, true);
+
+        // Assert
+        Assert.NotNull(result);
+    }
+
+
+
 
 
 }

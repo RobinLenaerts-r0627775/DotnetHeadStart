@@ -43,7 +43,7 @@ public class BaseModelInterceptor : SaveChangesInterceptor
                     entry.Entity.ModifiedAt = DateTime.UtcNow;
                     break;
                 case EntityState.Deleted:
-                    if (entry is ISoftDeletable softDeletable)
+                    if (entry.Entity is ISoftDeletable softDeletable)
                     {
                         entry.State = EntityState.Modified;
                         softDeletable.DeletedAt = DateTime.UtcNow;
@@ -84,7 +84,7 @@ public class BaseModelInterceptor : SaveChangesInterceptor
                     entry.Entity.ModifiedAt = DateTime.UtcNow;
                     break;
                 case EntityState.Deleted:
-                    if (entry is ISoftDeletable softDeletable)
+                    if (entry.Entity is ISoftDeletable softDeletable)
                     {
                         entry.State = EntityState.Modified;
                         softDeletable.DeletedAt = DateTime.UtcNow;

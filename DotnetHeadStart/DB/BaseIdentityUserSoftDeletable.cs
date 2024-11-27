@@ -1,5 +1,3 @@
-using System;
-
 namespace DotnetHeadStart.DB;
 
 public class BaseIdentityUserSoftDeletable : BaseIdentityUser, ISoftDeletable

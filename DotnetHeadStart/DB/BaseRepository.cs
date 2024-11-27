@@ -62,7 +62,12 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// <returns>the object instance, or null if none could be found</returns>
     public T? GetById(string id, bool includeDeleted = false)
     {
-        return _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefault(x => x.Id == id);
+        var query = _context.Set<T>().AsQueryable();
+        if (!includeDeleted && typeof(ISoftDeletable).IsAssignableFrom(typeof(T)))
+        {
+            query = query.Where(x => ((ISoftDeletable)x).DeletedAt == DateTime.MinValue);
+        }
+        return query.FirstOrDefault(x => x.Id == id);
     }
 
     /// <summary>

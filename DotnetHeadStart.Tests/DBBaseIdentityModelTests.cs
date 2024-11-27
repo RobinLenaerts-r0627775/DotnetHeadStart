@@ -72,38 +72,6 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
     }
 
     [Fact]
-    public void SoftDeleteChangesDeletedAtValue()
-    {
-
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-
-        // Assert
-        Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
-    }
-
-    [Fact]
-    public void SoftDeleteDoesNotDelete()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-
-        // Assert
-        Assert.NotNull(_context.TestObjects.IgnoreQueryFilters().FirstOrDefault(t => t.Id == test.Id));
-    }
-
-    [Fact]
     public void GetByIdReturnsCorrectObject()
     {
         // Arrange
@@ -177,40 +145,6 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
         Assert.Equal(2, result.Count());
     }
 
-    [Fact]
-    public void GetAllReturnsAllObjectsWithDeleted()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-        var result = _repo.GetAll(true);
-
-        // Assert
-        Assert.Equal(3, result.Count());
-    }
-
-    [Fact]
-    public void GetByIdReturnsDeletedObjectIfDeleted()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        _context.SaveChanges();
-        var result = _repo.GetById(test.Id, true);
-
-        // Assert
-        Assert.NotNull(result);
-    }
-
     #endregion
 
     #region AsyncTests
@@ -247,38 +181,6 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
     }
 
     [Fact]
-    public async Task SoftDeleteChangesDeletedAtValueAsync()
-    {
-
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        await _context.SaveChangesAsync();
-
-        // Assert
-        Assert.NotEqual(DateTime.MinValue, test.DeletedAt);
-    }
-
-    [Fact]
-    public async Task SoftDeleteDoesNotDeleteAsync()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        await _context.SaveChangesAsync();
-
-        // Assert
-        Assert.NotNull(_context.TestObjects.Find(test.Id));
-    }
-
-    [Fact]
     public async Task GetByIdReturnsCorrectObjectAsync()
     {
         // Arrange
@@ -309,23 +211,6 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
     }
 
     [Fact]
-    public async Task GetByIdReturnsNullIfDeletedAsync()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        await _context.SaveChangesAsync();
-        var result = await _repo.GetByIdAsync(test.Id);
-
-        // Assert
-        Assert.Null(result);
-    }
-
-    [Fact]
     public async Task GetAllReturnsAllObjectsAsync()
     {
         // Act
@@ -350,40 +235,6 @@ public class DBBaseIdentityModelTests : IDisposable, IClassFixture<IdentityFixtu
 
         // Assert
         Assert.Equal(2, result.Count());
-    }
-
-    [Fact]
-    public async Task GetAllReturnsAllObjectsWithDeletedAsync()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        await _context.SaveChangesAsync();
-        var result = await _repo.GetAllAsync(true);
-
-        // Assert
-        Assert.Equal(3, result.Count());
-    }
-
-    [Fact]
-    public async Task GetByIdReturnsDeletedObjectIfDeletedAsync()
-    {
-        // Arrange
-        var test = new TestObject { Name = "test" };
-        _context.TestObjects.Add(test);
-        _context.SaveChanges();
-
-        // Act
-        _context.TestObjects.Remove(test);
-        await _context.SaveChangesAsync();
-        var result = await _repo.GetByIdAsync(test.Id, true);
-
-        // Assert
-        Assert.NotNull(result);
     }
 
     #endregion
