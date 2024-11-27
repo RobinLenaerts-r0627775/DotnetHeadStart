@@ -11,7 +11,14 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// <returns>An IEnumerable of <typeparamref name="T"/></returns>
     public async Task<IEnumerable<T>> GetAllAsync(bool includeDeleted = false)
     {
-        return await _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).ToListAsync();
+        var query = _context.Set<T>().AsQueryable();
+
+        if (!includeDeleted && typeof(ISoftDeletable).IsAssignableFrom(typeof(T)))
+        {
+            query = query.Where(x => ((ISoftDeletable)x).DeletedAt == DateTime.MinValue);
+        }
+
+        return await query.ToListAsync();
     }
 
     /// <summary>
@@ -20,7 +27,14 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// <returns>An IEnumerable of <typeparamref name="T"/></returns>
     public IEnumerable<T> GetAll(bool includeDeleted = false)
     {
-        return [.. _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue)];
+        var query = _context.Set<T>().AsQueryable();
+
+        if (!includeDeleted && typeof(ISoftDeletable).IsAssignableFrom(typeof(T)))
+        {
+            query = query.Where(x => ((ISoftDeletable)x).DeletedAt == DateTime.MinValue);
+        }
+
+        return [.. query];
     }
 
     /// <summary>
@@ -30,7 +44,13 @@ public class BaseRepository<T>(DbContext context) where T : class, IBaseEntity
     /// <returns>the object instance, or null if none could be found</returns>
     public async Task<T?> GetByIdAsync(string id, bool includeDeleted = false)
     {
-        return await _context.Set<T>().Where(x => includeDeleted || x.DeletedAt == DateTime.MinValue).FirstOrDefaultAsync(x => x.Id == id);
+        var query = _context.Set<T>().Where(e => e.Id == id);
+        if (!includeDeleted && typeof(ISoftDeletable).IsAssignableFrom(typeof(T)))
+        {
+            query = query.Where(x => ((ISoftDeletable)x).DeletedAt == DateTime.MinValue);
+        }
+        return await query.FirstOrDefaultAsync();
+
     }
 
     /// <summary>

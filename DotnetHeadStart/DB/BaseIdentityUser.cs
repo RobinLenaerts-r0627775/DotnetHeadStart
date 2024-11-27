@@ -7,6 +7,5 @@ public class BaseIdentityUser : IdentityUser, IBaseEntity
 {
     public DateTime CreatedAt { get; set; } = DateTime.MinValue;
     public DateTime ModifiedAt { get; set; } = DateTime.MinValue;
-    public DateTime DeletedAt { get; set; } = DateTime.MinValue;
     public bool IsDeleted { get; set; } = false;
 }

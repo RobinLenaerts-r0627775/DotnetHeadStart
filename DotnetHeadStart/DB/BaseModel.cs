@@ -8,6 +8,5 @@ public class BaseModel : IBaseEntity
     public string Id { get; set; } = Guid.NewGuid().ToString();
     public DateTime CreatedAt { get; set; } = DateTime.MinValue;
     public DateTime ModifiedAt { get; set; } = DateTime.MinValue;
-    public DateTime DeletedAt { get; set; } = DateTime.MinValue;
     public bool IsDeleted { get; set; } = false;
 }
