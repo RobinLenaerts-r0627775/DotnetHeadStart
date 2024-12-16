@@ -1,7 +1,8 @@
-using DotnetHeadStart.QueryFilters;
+
 
 namespace DotnetHeadStart.Extensions;
 
+[Experimental("QUERYFILTERS001")]
 public static class IQueryableExtensions
 {
     public static IQueryable<T> Filter<T>(this IQueryable<T> query) where T : class
@@ -13,7 +14,7 @@ public static class IQueryableExtensions
         throw new NotImplementedException();
         //TODO: Implement filter logic
 
-        return query;
+        // return query;
     }
 
     public static PaginatedResponse<T> FilterAndPaginate<T>(this IQueryable<T> query, int pageNumber, int pageSize, Expression<Func<T, object>>? SortBy, string SortDirection = "desc") where T : class

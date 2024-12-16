@@ -15,6 +15,8 @@ public class IdentityFixture
 
         // Set up the UserManager
         var passwordHasher = new PasswordHasher<TestUser>(); // Add this line to create a password hasher
+#pragma warning disable CS8625 // Cannot convert null literal to non-nullable reference type.
         UserManager = new UserManager<TestUser>(userStore, null, passwordHasher, null, null, null, null, null, null); // Pass the password hasher to the UserManager constructor
+#pragma warning restore CS8625 // Cannot convert null literal to non-nullable reference type.
     }
 }

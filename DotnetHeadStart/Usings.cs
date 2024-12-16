@@ -13,3 +13,5 @@ global using MailKit.Net.Smtp;
 global using System.Linq.Expressions;
 global using Microsoft.AspNetCore.Identity;
 global using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+global using DotnetHeadStart.QueryFilters;
+global using System.Diagnostics.CodeAnalysis;
